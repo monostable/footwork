@@ -3,13 +3,16 @@
 
 (define frame (new frame% [label "Footwork"]))
 (define menu-bar (new menu-bar% [parent frame]))
-(define menu-file (new menu% [label "File"] [parent menu-bar]))
 (define menu-edit (new menu% [label "Edit"] [parent menu-bar]))
+(define menu-view (new menu% [label "View"] [parent menu-bar]))
+
 (define menu-item-render
   (new menu-item%
-       [label "Render"]
-       [parent menu-file]
-       [callback (lambda (b e) (eprintf "render: b: ~v e: ~v" b e))]))
+       [label "Re-render"]
+       [parent menu-view]
+       [callback (lambda (b e) (eprintf "render: b: ~v e: ~v" b e))]
+       [shortcut #\r]))
+
 (append-editor-operation-menu-items menu-edit #t)
 
 (define our-canvas%
