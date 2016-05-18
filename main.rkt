@@ -6,6 +6,9 @@
 (define menu-sub-edit (new menu% [label "Edit"] [parent menu-bar]))
 (define menu-sub-view (new menu% [label "View"] [parent menu-bar]))
 
+(define our-module print)
+
+(define buffer (lambda () (open-input-string (send text get-text))))
 
 (define menu-item-render
   (new menu-item%
@@ -13,7 +16,8 @@
        [parent menu-sub-view]
        [callback
          (lambda (b e)
-           (eprintf "~v\n" [read (open-input-string (send text get-text))]))]
+           (define b (buffer))
+           (eval-syntax [read-syntax (object-name b) b]))]
        [shortcut #\r]))
 
 (append-editor-operation-menu-items menu-sub-edit #t)
