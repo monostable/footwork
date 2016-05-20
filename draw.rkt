@@ -14,12 +14,13 @@
     (send dc set-text-foreground "blue")
     (send dc draw-text str x y)))
 
-(define
-  (module name . items)
-  (lambda (dc) (execute-functions items dc)))
+(define-syntax-rule
+  (module name (layer l) (tedit t) items ...)
+  (lambda (dc) (execute-functions (list items ...) dc)))
 
 (define my-module
-  (module "eg" (fp_text "hi" (at 1 1)) (fp_text "lo" (at 20 20))))
+  (module Neosid_Air-Coil_SML_1turn_HDM0131A (layer F.Cu) (tedit 56CA2F43)
+    (fp_text "hi" (at 1 1)) (fp_text "lo" (at 20 20))))
 
 (define frame (new frame%
                    [label "Example"]
