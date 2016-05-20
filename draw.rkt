@@ -1,10 +1,10 @@
 #lang racket/gui
 
-(define (execute-functions flist args)
+(define (execute-functions flist . args)
   (for-each
    (lambda (function)
      [thread (lambda ()
-        [if (void? function) void (function args)])])
+        [if (void? function) void (apply function args)])])
    flist))
 
 (define-syntax-rule
@@ -14,12 +14,12 @@
     (send dc set-text-foreground "blue")
     (send dc draw-text str x y)))
 
-(define-syntax-rule
-  (module items)
+(define
+  (module name . items)
   (lambda (dc) (execute-functions items dc)))
 
 (define my-module
-  (module (list (fp_text "hi" (at 1 1)) (fp_text "lo" (at 20 20)))))
+  (module "eg" (fp_text "hi" (at 1 1)) (fp_text "lo" (at 20 20))))
 
 (define frame (new frame%
                    [label "Example"]
