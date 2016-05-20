@@ -4,7 +4,7 @@
   (for-each
    (lambda (function)
      [thread (lambda ()
-        [if (void? function) void (apply function args)])])
+        [apply function args])])
    flist))
 
 (define-syntax-rule
