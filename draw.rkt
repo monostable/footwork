@@ -1,13 +1,11 @@
 #lang racket/gui
-;(define-syntax-rule
-;  (at x y)
-;  (cons x y)
-;  )
 
-(define (apply-function-list flist element)
-  (for-each (lambda (f)
-         (thread (lambda () ((f element)))))
-       flist))
+(define (execute-functions flist args)
+  (for-each
+   (lambda (function)
+     [thread (lambda ()
+        [if (void? function) void (function args)])])
+   flist))
 
 (define-syntax-rule
   (fp_text str (at x y))
@@ -17,11 +15,11 @@
     (send dc draw-text str x y)))
 
 (define-syntax-rule
-  (module name (layer front-layer) (tedit time) items)
-  (lambda (dc) (apply-function-list items dc)))
+  (module items)
+  (lambda (dc) (execute-functions items dc)))
 
 (define my-module
-  (module "" (layer "") (tedit "") (list (fp_text "hi" (at 1 1)))))
+  (module (list (fp_text "hi" (at 1 1)) (fp_text "lo" (at 20 20)))))
 
 (define frame (new frame%
                    [label "Example"]
