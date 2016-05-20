@@ -2,7 +2,7 @@
 #lang racket/gui
 
 (define eval-pcbnew
-  (let ((ns (make-base-namespace)) (our-module println))
+  (let ((ns (make-base-namespace)))
     (parameterize ((current-namespace ns))
         (namespace-require 'racket))
     (lambda (expr) (eval expr ns))))
@@ -43,7 +43,6 @@
        [parent frame]
        [style (list 'no-focus)]))
 
-(send canvas accept-tab-focus #f)
 (define editor-canvas (new our-editor-canvas% [parent frame]))
 (define text (new text%))
 
