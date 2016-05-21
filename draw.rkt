@@ -1,4 +1,5 @@
-#lang racket/gui
+#lang racket
+(require racket/gui)
 (require (for-syntax syntax/parse))
 
 (define-syntax (define-symbols stx)
