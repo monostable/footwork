@@ -29,7 +29,7 @@
       (send dc set-text-foreground "red"))
     (send dc draw-text str x y)))
 
-(provide (except-out (all-from-out racket) #%module-begin)
+(provide (except-out (all-from-out racket) #%module-begin module)
          (rename-out [module-begin #%module-begin]))
 
 (define-syntax-rule
@@ -39,4 +39,4 @@
 (define-syntax-rule (module-begin expr ...)
   (#%module-begin
    (provide-symbols F.Cu B.Cu)
-   (provide fp_text kicad_module)))
+   (provide fp_text (rename-out [kicad_module module]))))
