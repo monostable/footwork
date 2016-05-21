@@ -1,7 +1,19 @@
 #lang racket/gui
+(require (for-syntax syntax/parse))
+
+(define-syntax (define-symbols stx)
+  (syntax-parse stx
+    [(_define-symbols id:id ...)
+     (syntax/loc stx
+       (begin
+         (define id 'id)
+         ...))]
+    [_ (raise-syntax-error 'define-symbols
+                           "Expected (define-symbols <identifier> ...)"
+                           stx)]))
 
 (define sides '(top bottom))
-(define layers '(F.Cu B.Cu))
+(define-symbols F.Cu B.Cu)
 
 (define (execute-functions flist . args)
   (for-each
@@ -20,11 +32,11 @@
     (send dc draw-text str x y)))
 
 (define-syntax-rule
-  (module name (layer lay) (tedit t) items ...)
-  (lambda (dc) (execute-functions (list items ...) (if [eq? lay 'F.Cu] 'top 'bottom) dc)))
+  (module name (layer _layer) (tedit t) items ...)
+  (lambda (dc) (execute-functions (list items ...) (if [eq? _layer F.Cu] 'top 'bottom) dc)))
 
 (define my-module
-  (module Neosid_Air-Coil_SML_1turn_HDM0131A (layer 'F.Cu) (tedit 56CA2F43)
+  (module Neosid_Air-Coil_SML_1turn_HDM0131A (layer B.Cu) (tedit 56CA2F43)
     (fp_text "hi" (at 1 1)) (fp_text "lo" (at 20 20))))
 
 (define frame (new frame%
