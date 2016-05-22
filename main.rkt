@@ -6,7 +6,7 @@
   (let ([file-path (~a "kicad_mod/" name ".rkt")])
   (make-evaluator
     'racket/base
-    #:allow-for-require `( ,file-path racket)
+    #:allow-for-require `(,file-path)
     `(require ,file-path))))
 
 (define eval-kicad_mod/draw
@@ -20,9 +20,10 @@
 (define menu-sub-edit (new menu% [label "Edit"] [parent menu-bar]))
 (define menu-sub-module (new menu% [label "Module"] [parent menu-bar]))
 
-(define (buffer) [open-input-string (send text get-text)])
+(define (get-buffer) [open-input-string (send text get-text)])
+;(define (set-buffer)
 
-(define (buffer-to-paint-callback) [eval-kicad_mod/draw (read (buffer))])
+(define (buffer-to-paint-callback) [eval-kicad_mod/draw (read (get-buffer))])
 
 (define menu-item-render
   (new menu-item%
@@ -31,6 +32,18 @@
        [callback
          (λ (b e) (send canvas refresh-now))]
        [shortcut #\r]))
+
+(define menu-item-evaluate
+  (new menu-item%
+       [label "Evaluate Code"]
+       [parent menu-sub-module]
+       [callback
+         (λ (b e)
+            (send text begin-edit-sequence)
+            (send text select-all)
+            (send text insert "hohohoh")
+            (send text end-edit-sequence))]
+       [shortcut #\e]))
 
 (append-editor-operation-menu-items menu-sub-edit #t)
 
@@ -54,6 +67,7 @@
 
 (define editor-canvas (new our-editor-canvas% [parent frame]))
 (define text (new text%))
+(send text set-max-undo-history 'forever)
 
 (send editor-canvas set-editor text)
 (send text load-file "example.kicad_mod")
