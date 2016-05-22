@@ -2,11 +2,11 @@
 #lang racket/gui
 (require racket/sandbox)
 
-(define eval-kicad_mod
+(define eval-kicad_mod/draw
   (make-evaluator
     'racket/base
-    #:allow-for-require '("kicad_mod.rkt" racket)
-    '(require "kicad_mod.rkt")))
+    #:allow-for-require '("kicad_mod/draw.rkt" racket)
+    '(require "kicad_mod/draw.rkt")))
 
 (define frame (new frame% [label "Footwork"]))
 (define menu-bar (new menu-bar% [parent frame]))
@@ -15,14 +15,14 @@
 
 (define (buffer) [open-input-string (send text get-text)])
 
-(define (buffer-to-paint-callback) [eval-kicad_mod (read (buffer))])
+(define (buffer-to-paint-callback) [eval-kicad_mod/draw (read (buffer))])
 
 (define menu-item-render
   (new menu-item%
        [label "Re-render"]
        [parent menu-sub-view]
        [callback
-         (lambda (b e) (send canvas refresh-now))]
+         (λ (b e) (send canvas refresh-now))]
        [shortcut #\r]))
 
 (append-editor-operation-menu-items menu-sub-edit #t)
@@ -42,7 +42,7 @@
 (define canvas
   (new our-canvas%
        [parent frame]
-       [paint-callback (lambda (canvas dc) ((buffer-to-paint-callback) dc))]
+       [paint-callback (λ (canvas dc) ((buffer-to-paint-callback) dc))]
        [style '(no-focus)]))
 
 (define editor-canvas (new our-editor-canvas% [parent frame]))
