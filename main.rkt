@@ -8,10 +8,16 @@
     #:allow-for-require '("kicad_mod/draw.rkt" racket)
     '(require "kicad_mod/draw.rkt")))
 
+(define eval-kicad_mod/evaluate
+  (make-evaluator
+    'racket/base
+    #:allow-for-require '("kicad_mod/evaluate.rkt" racket)
+    '(require "kicad_mod/evaluate.rkt")))
+
 (define frame (new frame% [label "Footwork"]))
 (define menu-bar (new menu-bar% [parent frame]))
 (define menu-sub-edit (new menu% [label "Edit"] [parent menu-bar]))
-(define menu-sub-view (new menu% [label "View"] [parent menu-bar]))
+(define menu-sub-module (new menu% [label "Module"] [parent menu-bar]))
 
 (define (buffer) [open-input-string (send text get-text)])
 
@@ -20,7 +26,7 @@
 (define menu-item-render
   (new menu-item%
        [label "Re-render"]
-       [parent menu-sub-view]
+       [parent menu-sub-module]
        [callback
          (λ (b e) (send canvas refresh-now))]
        [shortcut #\r]))

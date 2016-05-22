@@ -15,14 +15,13 @@
 
 (define (execute-functions flist . args)
   (for-each
-   (lambda (function!)
-     [thread (lambda ()
-        [apply function! args])])
+   (λ (function!)
+     [thread (λ () [apply function! args])])
    flist))
 
 (define-syntax-rule
   (fp_text str (at x y))
-  (lambda (side dc)
+  (λ (side dc)
     (send dc set-scale 1 1)
     (if [eq? side 'top]
       (send dc set-text-foreground "blue")
@@ -31,7 +30,7 @@
 
 (define-syntax-rule
   (module name (layer _layer) (tedit t) items ...)
-  (lambda (dc) (execute-functions (list items ...) (if [eq? _layer 'F.Cu] 'top 'bottom) dc)))
+  (λ (dc) (execute-functions (list items ...) (if [eq? _layer 'F.Cu] 'top 'bottom) dc)))
 
 (provide-symbols F.Cu B.Cu)
 (provide fp_text module)
