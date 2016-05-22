@@ -1,11 +1,12 @@
 #!/usr/bin/env racket
 #lang racket/gui
+(require racket/sandbox)
 
-(define eval-pcbnew
-  (let ((ns (make-base-namespace)))
-    (parameterize ((current-namespace ns))
-        (namespace-require 'racket))
-    (lambda (expr) (eval expr ns))))
+(define eval-kicad_mod
+  (make-evaluator
+    'racket/base
+    #:allow-for-require '("kicad_mod.rkt" racket)
+    '(require "kicad_mod.rkt")))
 
 (define frame (new frame% [label "Footwork"]))
 (define menu-bar (new menu-bar% [parent frame]))
@@ -14,14 +15,14 @@
 
 (define (buffer) [open-input-string (send text get-text)])
 
-(define (render) [eval-pcbnew (read (buffer))])
+(define (transform-buffer) [eval-kicad_mod (read (buffer))])
 
 (define menu-item-render
   (new menu-item%
        [label "Re-render"]
        [parent menu-sub-view]
        [callback
-         (lambda (b e) (println (render)))]
+         (lambda (b e) (println (transform-buffer)))]
        [shortcut #\r]))
 
 (append-editor-operation-menu-items menu-sub-edit #t)
@@ -41,6 +42,7 @@
 (define canvas
   (new our-canvas%
        [parent frame]
+       [paint-callback (lambda (canvas dc) ((transform-buffer) dc))]
        [style (list 'no-focus)]))
 
 (define editor-canvas (new our-editor-canvas% [parent frame]))
@@ -49,5 +51,4 @@
 (send editor-canvas set-editor text)
 (send text load-file "example.kicad_mod")
 (send editor-canvas focus)
-(render)
 (send frame show #t)

@@ -29,14 +29,9 @@
       (send dc set-text-foreground "red"))
     (send dc draw-text str x y)))
 
-(provide (except-out (all-from-out racket) #%module-begin module)
-         (rename-out [module-begin #%module-begin]))
-
 (define-syntax-rule
-  (kicad_module name (layer _layer) (tedit t) items ...)
+  (module name (layer _layer) (tedit t) items ...)
   (lambda (dc) (execute-functions (list items ...) (if [eq? _layer 'F.Cu] 'top 'bottom) dc)))
 
-(define-syntax-rule (module-begin expr ...)
-  (#%module-begin
-   (provide-symbols F.Cu B.Cu)
-   (provide fp_text (rename-out [kicad_module module]))))
+(provide-symbols F.Cu B.Cu)
+(provide fp_text module)
