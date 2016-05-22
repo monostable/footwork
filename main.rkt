@@ -20,12 +20,12 @@
 (define menu-sub-edit (new menu% [label "Edit"] [parent menu-bar]))
 (define menu-sub-module (new menu% [label "Module"] [parent menu-bar]))
 
-(define (get-buffer) [open-input-string (send text get-text)])
-(define (set-buffer)
-            (send text begin-edit-sequence)
-            (send text select-all)
-            (send text insert "hohohoh")
-            (send text end-edit-sequence))
+(define (get-buffer) [open-input-string (send editor get-text)])
+(define (set-buffer text)
+            (send editor begin-edit-sequence)
+            (send editor select-all)
+            (send editor insert text)
+            (send editor end-edit-sequence))
 
 (define (buffer-to-paint-callback) [eval-kicad_mod/draw (read (get-buffer))])
 
@@ -66,10 +66,10 @@
        [style '(no-focus)]))
 
 (define editor-canvas (new our-editor-canvas% [parent frame]))
-(define text (new text%))
-(send text set-max-undo-history 'forever)
+(define editor (new text%))
+(send editor set-max-undo-history 'forever)
 
-(send editor-canvas set-editor text)
-(send text load-file "example.kicad_mod")
+(send editor-canvas set-editor editor)
+(send editor load-file "example.kicad_mod")
 (send editor-canvas focus)
 (send frame show #t)
