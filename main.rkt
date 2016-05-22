@@ -21,7 +21,11 @@
 (define menu-sub-module (new menu% [label "Module"] [parent menu-bar]))
 
 (define (get-buffer) [open-input-string (send text get-text)])
-;(define (set-buffer)
+(define (set-buffer)
+            (send text begin-edit-sequence)
+            (send text select-all)
+            (send text insert "hohohoh")
+            (send text end-edit-sequence))
 
 (define (buffer-to-paint-callback) [eval-kicad_mod/draw (read (get-buffer))])
 
@@ -35,14 +39,10 @@
 
 (define menu-item-evaluate
   (new menu-item%
-       [label "Evaluate Code"]
+       [label "Evaluate code"]
        [parent menu-sub-module]
        [callback
-         (λ (b e)
-            (send text begin-edit-sequence)
-            (send text select-all)
-            (send text insert "hohohoh")
-            (send text end-edit-sequence))]
+         (λ (b e) (set-buffer))]
        [shortcut #\e]))
 
 (append-editor-operation-menu-items menu-sub-edit #t)
