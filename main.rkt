@@ -15,14 +15,14 @@
 
 (define (buffer) [open-input-string (send text get-text)])
 
-(define (transform-buffer) [eval-kicad_mod (read (buffer))])
+(define (buffer-to-paint-callback) [eval-kicad_mod (read (buffer))])
 
 (define menu-item-render
   (new menu-item%
        [label "Re-render"]
        [parent menu-sub-view]
        [callback
-         (lambda (b e) (println (transform-buffer)))]
+         (lambda (b e) (send canvas refresh-now))]
        [shortcut #\r]))
 
 (append-editor-operation-menu-items menu-sub-edit #t)
@@ -42,8 +42,8 @@
 (define canvas
   (new our-canvas%
        [parent frame]
-       [paint-callback (lambda (canvas dc) ((transform-buffer) dc))]
-       [style (list 'no-focus)]))
+       [paint-callback (lambda (canvas dc) ((buffer-to-paint-callback) dc))]
+       [style '(no-focus)]))
 
 (define editor-canvas (new our-editor-canvas% [parent frame]))
 (define text (new text%))
