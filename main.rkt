@@ -27,36 +27,38 @@
 (new menu-item%
      (label "&Open")
      (parent file-menu)
-     (callback (lambda (item event)
-                   (let ([path (send editor get-file #f)])
-                     (cond
-                       [(path-string? path)
-                        (send editor load-file path 'text)
-                        (send editor set-filename path)]
-                       [else #t])))))
+     (callback
+       (λ (item event)
+          (let ([path (send editor get-file #f)])
+            (cond
+              [(path-string? path)
+               (send editor load-file path 'text)
+               (send editor set-filename path)]
+              [else #t])))))
 
 (new menu-item%
      (label "&Save")
      (parent file-menu)
-     (callback (lambda (item event)
-                 (send editor save-file
-                       (send editor get-filename) 'text))))
+     (callback
+       (lambda (item event)
+         [send editor save-file
+               (send editor get-filename) 'text])))
 
-(define edit-menu (new menu% [label "Edit"] [parent menu-bar]))
-(define module-menu (new menu% [label "Module"] [parent menu-bar]))
+(define edit-menu (new menu% [label "&Edit"] [parent menu-bar]))
+(define module-menu (new menu% [label "&Module"] [parent menu-bar]))
 
 (define (get-buffer) [open-input-string (send editor get-text)])
 (define (set-buffer text)
-            (send editor begin-edit-sequence)
-            (send editor select-all)
-            (send editor insert text)
-            (send editor end-edit-sequence))
+  [send editor begin-edit-sequence]
+  [send editor select-all]
+  [send editor insert text]
+  [send editor end-edit-sequence])
 
 (define (buffer-to-paint-callback) [eval-kicad_mod/draw (read (get-buffer))])
 
 (define menu-item-render
   (new menu-item%
-       [label "Re-render"]
+       [label "&Re-render"]
        [parent module-menu]
        [callback
          (λ (b e) (send canvas refresh-now))]
@@ -64,7 +66,7 @@
 
 (define menu-item-evaluate
   (new menu-item%
-       [label "Evaluate code"]
+       [label "&Evaluate code"]
        [parent module-menu]
        [callback
          (λ (b e) (set-buffer))]
