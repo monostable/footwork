@@ -1,2 +1,2 @@
-(module Neosid_Air-Coil_SML_1turn_HDM0131A (layer B.Cu) (tedit 56CA2F43)
-  (fp_text "hi" (at 1 1)) (fp_text "lo" (at 20 20))))
+(module "" (layer B.Cu) (tedit 56CA2F43)
+  (fp_text "oh" (at 1 1)) (fp_text "lo" (at 20 20))))
