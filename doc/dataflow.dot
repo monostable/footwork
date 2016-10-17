@@ -1,0 +1,8 @@
+strict digraph G {
+    node [shape=hexagon] file
+    node [shape=tripleoctagon] editor
+    node [shape=ellipse]
+    {rank=same "load-file" "save-file"}
+    "file" -> "load-file" -> "editor"
+    "editor" -> "save-file" -> "file"
+}
