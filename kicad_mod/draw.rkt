@@ -28,8 +28,15 @@
       (send dc set-text-foreground "red"))
     (send dc draw-text str x y)))
 
-(define (draw layer items ...)
-  (λ (dc) (execute-functions (list items ...) (if [eq? layer 'F.Cu] 'top 'bottom) dc)))
+(define-syntax-rule
+  (fp_line (start start-x start-y) (end end-x end-y) (layer l) (width w))
+  (λ (side dc)
+    (send dc set-scale 1 1)
+    (send dc set-pen "black" w 'solid)
+    (send dc draw-line start-x start-y end-x end-y)))
+
+(define (draw layer . items)
+  (λ (dc) (execute-functions items (if [eq? layer 'F.Cu] 'top 'bottom) dc)))
 
 (define-syntax module
   (syntax-rules ()
@@ -39,4 +46,4 @@
       (draw l items ...)]))
 
 (provide-symbols F.Cu B.Cu)
-(provide fp_text module)
+(provide fp_text fp_line module)

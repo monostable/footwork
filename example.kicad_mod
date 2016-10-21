@@ -1,2 +1,3 @@
 (module "" (layer B.Cu)
-  (fp_text "oh" (at 1 1)) (fp_text "lo" (at 20 20))))
+  (fp_line (start 0 0) (end 50 50) (layer F.Cu) (width 0.150000))
+  (fp_text "oh" (at 1 1)) (fp_text "lo" (at 20 20)))
