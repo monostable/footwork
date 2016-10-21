@@ -28,9 +28,15 @@
       (send dc set-text-foreground "red"))
     (send dc draw-text str x y)))
 
-(define-syntax-rule
-  (module name (layer _layer) (tedit t) items ...)
-  (λ (dc) (execute-functions (list items ...) (if [eq? _layer 'F.Cu] 'top 'bottom) dc)))
+(define (draw layer items ...)
+  (λ (dc) (execute-functions (list items ...) (if [eq? layer 'F.Cu] 'top 'bottom) dc)))
+
+(define-syntax module
+  (syntax-rules ()
+    [(module name (layer l) (tedit t) items ...)
+      (draw l items ...)]
+    [(module name (layer l) items ...)
+      (draw l items ...)]))
 
 (provide-symbols F.Cu B.Cu)
 (provide fp_text module)
