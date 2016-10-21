@@ -1,18 +1,7 @@
 #!/usr/bin/env racket
 #lang racket/gui
-(require racket/sandbox)
 
-(define (eval-mod name)
-  (let ([mod "kicad_mod/draw.rkt"])
-  (make-evaluator
-    'racket/base
-    #:requires `(,mod))))
-
-(define eval-kicad_mod/draw
-  (eval-mod "draw"))
-
-(define eval-kicad_mod/evaluate
-  (eval-mod "evaluate"))
+(require "kicad_mod.rkt")
 
 (define frame (new frame% [label "Footwork"]))
 (define menu-bar (new menu-bar% [parent frame]))
