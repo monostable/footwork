@@ -50,9 +50,12 @@
   (let ([success #t])
     (with-handlers
       ([exn:fail?
-          (set! success #f)])
+         (λ (e) (set! success #f) (displayln e))])
       (set! next-draw-function (get-draw-function)) (set! success #t))
-    (draw-function)))
+    (if success
+      [list (set! draw-function next-draw-function) (displayln "draw suceeded")]
+      [displayln "draw failed"])
+    draw-function))
 
 
 (define menu-item-render
