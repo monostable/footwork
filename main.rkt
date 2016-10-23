@@ -75,6 +75,12 @@
   (class editor-canvas%
     (super-new)))
 
+(define our-text%
+  (class text%
+    (define/augment (after-save-file success?)
+      (send canvas refresh-now))
+    (super-new)))
+
 (define canvas
   (new our-canvas%
        [parent frame]
@@ -82,7 +88,7 @@
        [style '(no-focus)]))
 
 (define editor-canvas (new our-editor-canvas% [parent frame]))
-(define editor (new text%))
+(define editor (new our-text%))
 (send editor set-max-undo-history 'forever)
 
 (send editor-canvas set-editor editor)
