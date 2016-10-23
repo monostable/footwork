@@ -42,7 +42,18 @@
   [send editor insert text]
   [send editor end-edit-sequence])
 
-(define (buffer-to-paint-callback) [eval-kicad_mod/draw (read (get-buffer))])
+(define (get-draw-function) (eval-kicad_mod/draw (read (get-buffer))))
+(define (next-draw-function) (get-draw-function))
+(define (draw-function) (get-draw-function))
+
+(define (buffer-to-paint-callback)
+  (let ([success #t])
+    (with-handlers
+      ([exn:fail?
+          (set! success #f)])
+      (set! next-draw-function (get-draw-function)) (set! success #t))
+    (draw-function)))
+
 
 (define menu-item-render
   (new menu-item%
@@ -84,7 +95,8 @@
 (define canvas
   (new our-canvas%
        [parent frame]
-       [paint-callback (λ (canvas dc) ((buffer-to-paint-callback) dc))]
+       [paint-callback
+         (λ (canvas dc) ((buffer-to-paint-callback) dc))]
        [style '(no-focus)]))
 
 (define editor-canvas (new our-editor-canvas% [parent frame]))
