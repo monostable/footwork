@@ -52,9 +52,7 @@
       ([exn:fail?
          (λ (e) (set! success #f) (displayln e))])
       (set! next-draw-function (get-draw-function)) (set! success #t))
-    (if success
-      [list (set! draw-function next-draw-function) (displayln "draw suceeded")]
-      [displayln "draw failed"])
+    (cond [success (set! draw-function next-draw-function)])
     draw-function))
 
 

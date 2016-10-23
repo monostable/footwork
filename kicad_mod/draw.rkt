@@ -19,6 +19,7 @@
      [thread (λ () [apply function! args])])
    flist))
 
+
 (define-syntax-rule
   (fp_text str (at x y))
   (λ (side dc)
@@ -36,7 +37,8 @@
     (send dc draw-line start-x start-y end-x end-y)))
 
 (define (draw layer . items)
-  (λ (dc) (execute-functions items (if [eq? layer 'F.Cu] 'top 'bottom) dc)))
+  (λ (dc) (execute-functions (flatten items) (if [eq? layer 'F.Cu] 'top 'bottom) dc)))
+
 
 (define-syntax module
   (syntax-rules ()

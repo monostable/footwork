@@ -15,7 +15,7 @@
 ;   (-> String (-> String (-> String Any))))
 (define (make-kicad-mod-evaluator name)
   (make-evaluator
-    'racket/base
+    'racket
     #:requires `(,(~a "kicad_mod/" name ".rkt"))))
 
 ;(: eval-kicad_mod/draw (-> String (String -> Any)))
