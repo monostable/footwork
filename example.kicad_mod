@@ -1,3 +1,4 @@
 (module "" (layer B.Cu)
-  (for ([i (range 0 60 20)] [w '("oh" "la" "lah")])
-  (fp_text w (at 10 i))))
+  (fp_line (start 0 0) (end 5 5) (layer F.Cu) (width 10))
+  (for ([i (range 0 6 2)] [w '("oh" "la" "lah")])
+    (fp_text w (at 1 i))))

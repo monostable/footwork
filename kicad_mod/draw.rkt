@@ -24,7 +24,6 @@
 (define-syntax-rule
   (fp_text str (at x y))
   (λ (side dc)
-    (send dc set-scale 5 5)
     (if [eq? side 'top]
       (send dc set-text-foreground "blue")
       (send dc set-text-foreground "red"))
@@ -33,12 +32,11 @@
 (define-syntax-rule
   (fp_line (start start-x start-y) (end end-x end-y) (layer l) (width w))
   (λ (side dc)
-    (send dc set-scale 1 1)
     (send dc set-pen "black" w 'solid)
     (send dc draw-line start-x start-y end-x end-y)))
 
 (define (draw layer . items)
-  (λ (dc) (execute-functions (flatten items) (if [eq? layer 'F.Cu] 'top 'bottom) dc)))
+  (λ (dc) (send dc set-scale 10 10) (execute-functions (flatten items) (if [eq? layer 'F.Cu] 'top 'bottom) dc)))
 
 
 (define-syntax module
