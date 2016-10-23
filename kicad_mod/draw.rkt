@@ -1,4 +1,5 @@
 #lang racket
+(require (rename-in racket (for for/effect) (for/list for)))
 (require (for-syntax syntax/parse))
 
 (define-syntax (provide-symbols stx)
@@ -23,7 +24,7 @@
 (define-syntax-rule
   (fp_text str (at x y))
   (λ (side dc)
-    (send dc set-scale 1 1)
+    (send dc set-scale 5 5)
     (if [eq? side 'top]
       (send dc set-text-foreground "blue")
       (send dc set-text-foreground "red"))
@@ -48,4 +49,4 @@
       (draw l items ...)]))
 
 (provide-symbols F.Cu B.Cu)
-(provide fp_text fp_line module)
+(provide fp_text fp_line module for)
