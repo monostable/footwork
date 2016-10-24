@@ -1,0 +1,1 @@
+("6.6" ("dc874cd8ef595979c3acf7eaad10b25d7335363a" . "4ef06167f8041e75c67c2bd80d62b1b81ab58563") (collects #"formica" #"lang" #"reader.rkt") (collects #"formica" #"main.rkt") (collects #"racket" #"runtime-config.rkt") (collects #"rackunit" #"main.rkt") (indirect collects #"racket" #"match" #"gen-match.rkt") (indirect collects #"racket" #"match" #"parse.rkt"))

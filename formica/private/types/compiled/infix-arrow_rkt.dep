@@ -1,0 +1,1 @@
+("6.6" ("577d241e6000a529f55970c7b7ec2c337718c780" . "2fce494ce258fd627e31950f782b2a71f51b5826") (collects #"formica" #"private" #"types" #"type-checking.rkt") (collects #"racket" #"base.rkt") (collects #"racket" #"contract" #"parametric.rkt") (collects #"racket" #"contract.rkt") (collects #"racket" #"runtime-config.rkt"))

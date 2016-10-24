@@ -1,0 +1,6 @@
+(module ""
+  (layer B.Cu)
+  (fp_line (start 0 0) (end 5 5) (layer F.Cu) (width 10))
+  (fp_text "oh" (at 1 0))
+  (fp_text "la" (at 1 2))
+  (fp_text "lah" (at 1 4)))

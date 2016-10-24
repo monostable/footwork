@@ -25,12 +25,13 @@
               [else #t])))))
 
 (new menu-item%
-     (label "&Save")
-     (parent file-menu)
-     (callback
+     [label "&Save"]
+     [parent file-menu]
+     [shortcut #\s]
+     [callback
        (lambda (item event)
          [send editor save-file
-               (send editor get-filename) 'text])))
+               (send editor get-filename) 'text])])
 
 (define edit-menu (new menu% [label "&Edit"] [parent menu-bar]))
 (define module-menu (new menu% [label "&Module"] [parent menu-bar]))
@@ -69,7 +70,7 @@
        [label "&Evaluate code"]
        [parent module-menu]
        [callback
-         (λ (b e) (set-buffer "hohoho"))]
+         (λ (b e) (set-buffer (~s (eval-kicad_mod/evaluate (read (get-buffer))))))]
        [shortcut #\e]))
 
 (append-editor-operation-menu-items edit-menu #t)
@@ -105,6 +106,6 @@
 (send editor set-max-undo-history 'forever)
 
 (send editor-canvas set-editor editor)
-(send editor load-file "example.kicad_mod")
+(send editor load-file "example2.kicad_mod")
 (send editor-canvas focus)
 (send frame show #t)

@@ -1,18 +1,6 @@
 #lang racket
-(require (rename-in racket (for for/effect) (for/list for)))
-(require (for-syntax syntax/parse))
-
-(define-syntax (provide-symbols stx)
-  (syntax-parse stx
-    [(_define-symbols id:id ...)
-     (syntax/loc stx
-       (begin
-         (begin (define id 'id)
-         (provide id))
-         ...))]
-    [_ (raise-syntax-error 'define-symbols
-                           "Expected (define-symbols <identifier> ...)"
-                           stx)]))
+(require (only-in racket (for for/effect) (for/list for)))
+(require "provide-symbols.rkt")
 
 (define (execute-functions flist . args)
   (for-each
@@ -29,11 +17,13 @@
       (send dc set-text-foreground "red"))
     (send dc draw-text str x y)))
 
+
 (define-syntax-rule
   (fp_line (start start-x start-y) (end end-x end-y) (layer l) (width w))
   (λ (side dc)
     (send dc set-pen "black" w 'solid)
     (send dc draw-line start-x start-y end-x end-y)))
+
 
 (define (draw layer . items)
   (λ (dc) (send dc set-scale 10 10) (execute-functions (flatten items) (if [eq? layer 'F.Cu] 'top 'bottom) dc)))
@@ -45,6 +35,7 @@
       (draw l items ...)]
     [(module name (layer l) items ...)
       (draw l items ...)]))
+
 
 (provide-symbols F.Cu B.Cu)
 (provide fp_text fp_line module for)
