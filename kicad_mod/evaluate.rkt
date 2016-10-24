@@ -15,10 +15,3 @@
 
 (provide-symbols F.Cu B.Cu)
 (provide fp_text fp_line start at end layer width tedit module for)
-
-;(println
-;  (~s
-;      (module "" (layer B.Cu)
-;        (fp_line (start 0 0) (end 5 5) (layer F.Cu) (width 10))
-;        (for ([i (range 0 6 2)] [w '("oh" "la" "lah")])
-;          (fp_text w (at 1 i)))))

@@ -70,7 +70,11 @@
        [label "&Evaluate code"]
        [parent module-menu]
        [callback
-         (λ (b e) (set-buffer (~s (eval-kicad_mod/evaluate (read (get-buffer))))))]
+         (λ (b e)
+            (set-buffer
+              (substring
+                (pretty-format (eval-kicad_mod/evaluate (read (get-buffer))))
+                1)))]
        [shortcut #\e]))
 
 (append-editor-operation-menu-items edit-menu #t)
@@ -106,6 +110,6 @@
 (send editor set-max-undo-history 'forever)
 
 (send editor-canvas set-editor editor)
-(send editor load-file "example2.kicad_mod")
+(send editor load-file "example.kicad_mod")
 (send editor-canvas focus)
 (send frame show #t)
