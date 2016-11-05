@@ -1,1 +1,0 @@
-("6.6" ("8cd5b7e5cf0f280355ce065b76b31cbda6114ce4" . "e1b65d4d19d1c286d89a9d416ba39dcf35a7d9d7") (collects #"formica" #"private" #"rewrite" #"rewrite-repeated.rkt") (collects #"formica" #"private" #"rewrite" #"rewrite.rkt") (collects #"formica" #"private" #"tools" #"patterns.rkt") (collects #"racket" #"base.rkt") (collects #"racket" #"runtime-config.rkt"))

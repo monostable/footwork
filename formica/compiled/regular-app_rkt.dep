@@ -1,1 +1,0 @@
-("6.6" ("0988414cb53a3315e49732cf38cf3a758e441c4a" . "175c5a5ad88a41f934c1066ca82864328b40cd06") (collects #"formica" #"regular-app" #"main.rkt") (collects #"racket" #"base.rkt") (collects #"racket" #"runtime-config.rkt"))

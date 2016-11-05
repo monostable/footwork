@@ -1,1 +1,0 @@
-("6.6" ("61eb6a47faee8623733ef0c7dd54fdc38eaea65b" . "05810aa67a004e34649381bab257ccb4940c6a42") (collects #"formica" #"private" #"tools" #"memoize.rkt") (collects #"formica" #"types.rkt") (collects #"racket" #"base.rkt") (collects #"racket" #"runtime-config.rkt"))
