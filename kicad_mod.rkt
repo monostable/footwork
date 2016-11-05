@@ -14,9 +14,10 @@
 ;(: make-kicad-mod-evaluator
 ;   (-> String (-> String (-> String Any))))
 (define (make-kicad-mod-evaluator name)
-  (make-evaluator
-    'racket
-    #:requires `(,(~a "kicad_mod/" name ".rkt"))))
+  (parameterize ([sandbox-memory-limit #f])
+    (make-evaluator
+      'racket
+      #:requires `(,(~a "kicad_mod/" name ".rkt")))))
 
 ;(: eval-kicad_mod/draw (-> String (String -> Any)))
 (define eval-kicad_mod/draw
