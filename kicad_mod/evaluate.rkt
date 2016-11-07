@@ -1,5 +1,5 @@
 #lang racket
-(require "../formica/formal.rkt")
+(require "../formal/formal.rkt")
 (require (only-in racket (for for/effect) (for/list for)))
 (require "provide-symbols.rkt")
 
