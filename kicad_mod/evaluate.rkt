@@ -1,5 +1,5 @@
 #lang racket
-(require "../formal/formal.rkt")
+(require "formal.rkt")
 (require (only-in racket (for for/effect) (for/list for)))
 (require "provide-symbols.rkt")
 

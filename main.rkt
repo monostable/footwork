@@ -47,7 +47,7 @@
 (define (next-draw-function) (get-draw-function))
 (define (draw-function) (get-draw-function))
 
-(define (buffer-to-paint-callback)
+(define (get-paint-callback)
   (let ([success #t])
     (with-handlers
       ([exn:fail?
@@ -102,7 +102,7 @@
   (new our-canvas%
        [parent frame]
        [paint-callback
-         (λ (canvas dc) ((buffer-to-paint-callback) dc))]
+         (λ (canvas dc) ((get-paint-callback) dc))]
        [style '(no-focus)]))
 
 (define editor-canvas (new our-editor-canvas% [parent frame]))
