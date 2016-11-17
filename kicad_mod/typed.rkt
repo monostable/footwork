@@ -31,9 +31,17 @@
 (define-syntax-rule (define-formal f)
   (define f (lambda arguments `(f ,@arguments))))
 
-
-(define-typed-kicad fp_line String (Listof Any))
-
 (define-typed at (Number Number) (Number))
 
-(kicad-expand (for/list ([i (range 5)]) (fp_line "" (at i 2.0))))
+
+(define-syntax fp_text
+  (syntax-rules ()
+    [(fp_text str (at x y))
+     (kicad `(fp_text ,str (at ,x ,y)))]
+    [(fp_text str (at x y o))
+     (kicad `(fp_text ,str (at ,x ,y ,o)))]))
+
+
+(pretty-print
+  (kicad-expand
+    (for/list ([i (range 5)]) (fp_text "" (at i 2.0 180)))))
