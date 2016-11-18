@@ -1,4 +1,4 @@
-all: dataflow.svg
+all: dataflow.svg phases.svg
 
 %.svg: %.dot
 	dot -Tsvg $< > $@

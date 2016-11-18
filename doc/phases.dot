@@ -1,0 +1,3 @@
+strict digraph G {
+    "start" -> "type check" -> "evaluate racket" -> "to data" -> "paint"
+}

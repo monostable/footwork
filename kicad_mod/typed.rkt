@@ -32,7 +32,7 @@
 
 (define-typed at (Number Number) (Number))
 
-(: unless-equals (Any Any -> (Listof Any)))
+(: unless-equals (All (A) (A A -> (Listof A))))
 (define (unless-equals test value)
   (filter (lambda (x) (not (eq? (void) x))) (list (unless (eq? test value) value))))
 
@@ -40,6 +40,10 @@
   (syntax-parse stx
     [(fp_text str (at x y (~optional o #:defaults ([o #'0]))))
      #'(kicad `(fp_text ,str (at ,x ,y ,@(unless-equals 0 o))))]))
+
+(struct At ([x : Number] [y : Number] [o : Number]))
+
+
 
 (pretty-print
   (kicad-expand
