@@ -21,7 +21,7 @@
 (define-syntax-rule
   (fp_line (start start-x start-y) (end end-x end-y) (layer l) (width w))
   (λ (side dc)
-    (send dc set-pen "black" w 'solid)
+    (send dc set-pen "darkred" w 'solid)
     (send dc draw-line start-x start-y end-x end-y)))
 
 
