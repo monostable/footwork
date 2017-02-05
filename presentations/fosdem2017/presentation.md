@@ -58,6 +58,16 @@ parse (write (expression)) == expression
 
 Then it will reduce it down to the simplest possible case.
 
+```
+PcbnewExpr:
+  parse fp_line correctly: [OK, passed 100 tests]
+  parse fp_arc correctly: [OK, passed 100 tests]
+  parse fp_poly correctly: [OK, passed 100 tests]
+  parse and write any PcbnewExpr: [Failed]
+*** Failed! Falsifiable (after 32 tests): 
+PcbnewExprModule (PcbnewModule {pcbnewModuleName = "A<", ...
+```
+
 ???
 - Quickcheck will pretty much throw randomly generated data at your program to disprove you
 - So in my case the assertion is mostly that whatever is written and then parsed is the same as the original expression
@@ -66,7 +76,7 @@ Then it will reduce it down to the simplest possible case.
 ---
 # S-expressions
 
-S-expressions are a simple representation of the parse tree.
+S-expressions are a representation of the parse tree.
 ```racket
 (* 2 (+ 3 4))
 ```
@@ -103,7 +113,7 @@ image: https://xkcd.com/297/
 <img width=100% src=images/drracket0.png>
 
 ???
-- Has good GUI libraries and this wicked IDE called drrracket
+- Has very mature bindings to GTK  and this wicked IDE called drrracket
 - This is a drracket window
 ---
 <img width=100% src=images/drracket.png>
@@ -202,6 +212,7 @@ How can you make arbitrary constructs like this
 [Rosette](https://emina.github.io/rosette/) is a solver-aided programming language that extends Racket with language constructs for program synthesis, verification, and more. 
 
 ???
+
 So I had heard of formal verification, and that is something you might do for really safety critical systems. But I had never heard you could use it for programming synthesis.
 
 ---
@@ -226,6 +237,12 @@ So I had heard of formal verification, and that is something you might do for re
 - This is  section of the list of smt solvers from wikipedia
 - And they implement different algorithm a
 - The one Rosette uses by default is the Z3 solver from microsoft at the bottom here
+
+---
+<img width=100% src=images/emina.png>
+
+From: "Synthesis and Verification for All" - Emina Torlak, [Sixth RacketCon](http://con.racket-lang.org/)
+([Youtube](https://www.youtube.com/watch?v=nOyIKCszNeI&list=PLXr4KViVC0qKSiKGO6Vz9EtxUfKPb1Ma0))
 
 ---
 
