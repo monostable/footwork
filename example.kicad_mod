@@ -1,3 +1,3 @@
-(module "test" (layer B.Cu)
-  (for ([i (range 10 20 2)])
-    (fp_line (start 1 i) (end 7 i) (layer F.Cu) (width 1))))
+(module "" (layer B.Cu)
+  (for ([i (range 5)])
+    (fp_line (start 1 (* i 2)) (end 7 (* i 2)) (layer F.Cu) (width 1))))
