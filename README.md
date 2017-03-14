@@ -9,7 +9,7 @@ More direct traditional manipulation (clicking and dragging and such) will be ad
 
 [sketch-n-sketch][sketch-n-sketch] is an inspiration which aims to provide a similar editor for SVGs and calls this style of manipulation "prodirect" (programmatic + direct).
 
-##Planned features
+## Planned features
 
 - The interface is text-first allowing users to make arbitrary edits: their needs need not be anticipated by the user interface
 - Users can use a fully featured general purpose programming languages to generate and modify footprints
