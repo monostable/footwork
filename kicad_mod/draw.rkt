@@ -26,7 +26,10 @@
 
 
 (define (draw layer . items)
-  (λ (dc) (send dc set-scale 10 10) (execute-functions (flatten items) (if [eq? layer 'F.Cu] 'top 'bottom) dc)))
+  (λ (dc)
+    (send dc set-scale 10 10)
+    (execute-functions
+      (flatten items) (if [eq? layer 'F.Cu] 'top 'bottom) dc)))
 
 
 (define-syntax module
