@@ -9,6 +9,8 @@ More direct traditional manipulation (clicking and dragging and such) will be ad
 
 [sketch-n-sketch][sketch-n-sketch] is an inspiration which aims to provide a similar editor for SVGs and calls this style of manipulation "prodirect" (programmatic + direct).
 
+I gave a [presentation about footwork at FOSDEM 2017][fosdem2017].
+
 ## Planned features
 
 - The interface is text-first allowing users to make arbitrary edits: their needs need not be anticipated by the user interface
@@ -20,3 +22,4 @@ More direct traditional manipulation (clicking and dragging and such) will be ad
 [racket]: http://racket-lang.org
 [sketch-n-sketch]: https://ravichugh.github.io/sketch-n-sketch/
 [rosette]: https://emina.github.io/rosette/
+[fosdem2017]: https://fosdem.org/2017/schedule/event/footwork/
