@@ -1,6 +1,7 @@
 #!/usr/bin/env racket
 #lang racket/gui
 
+(require framework)
 (require "kicad_mod.rkt")
 
 (define frame (new frame% [label "Footwork"]))
@@ -93,7 +94,7 @@
     (super-new)))
 
 (define our-text%
-  (class text%
+  (class racket:text%
     (define/augment (after-save-file success?)
       (send canvas refresh-now))
     (super-new)))
