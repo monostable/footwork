@@ -77,7 +77,12 @@
    lst))
 
 (define (struct->list x)
-  (let* ([v (struct->vector x)]
+  (let* ([de-struct
+          (λ (sym)
+            (let ([str (symbol->string sym)])
+              (string->symbol
+               (string-replace str "struct:" ""))))]
+         [v (struct->vector x)]
          [s (de-struct (vector-ref v 0))])
     (begin
       (vector-set! v 0 s)
@@ -90,19 +95,14 @@
     [(list? x) (map to-list x)]
     [else x]))
 
-(define (de-struct symbol)
-  (let ([str (symbol->string symbol)])
-    (string->symbol
-     (string-replace str "struct:" ""))))
-
 (define menu-item-evaluate
-  (let ([cb
-         (λ (b e)
-          (set-buffer
-            (pretty-format #:mode 'write
-              (to-list
-                (flatten/list
-                  (struct->list (eval-kicad_mod/ast (read (get-buffer)))))))))])
+  (let* ([s (λ () (eval-kicad_mod/ast (read (get-buffer))))]
+         [cb (λ (b e)
+              (set-buffer
+                (pretty-format #:mode 'write
+                  (to-list
+                    (flatten/list
+                      (struct->list (s)))))))])
     (new menu-item%
          [label "&Evaluate code"]
          [parent module-menu]
