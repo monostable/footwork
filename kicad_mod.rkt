@@ -1,6 +1,6 @@
 #lang racket
 
-(provide eval-kicad_mod/draw eval-kicad_mod/evaluate)
+(provide eval-kicad_mod/draw eval-kicad_mod/ast)
 
 (require racket/sandbox)
 ;(require
@@ -23,6 +23,5 @@
 (define eval-kicad_mod/draw
   (make-kicad-mod-evaluator "draw"))
 
-;(: eval-kicad_mod/evaluate (-> String (String -> Any)))
-(define eval-kicad_mod/evaluate
-  (make-kicad-mod-evaluator "evaluate"))
+(define eval-kicad_mod/ast
+  (make-kicad-mod-evaluator "ast"))

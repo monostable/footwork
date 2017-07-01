@@ -66,17 +66,48 @@
          (λ (b e) (send canvas refresh-now))]
        [shortcut #\r]))
 
+
+(define (flatten/list lst)
+  (foldl
+   (lambda (x result)
+     (if (list? x)
+         (append result (flatten/list x))
+         (append result (list x))))
+   (list)
+   lst))
+
+(define (struct->list x)
+  (let* ([v (struct->vector x)]
+         [s (de-struct (vector-ref v 0))])
+    (begin
+      (vector-set! v 0 s)
+      (vector->list v))))
+
+
+(define (to-list x)
+  (cond
+    [(struct? x) (to-list (struct->list x))]
+    [(list? x) (map to-list x)]
+    [else x]))
+
+(define (de-struct symbol)
+  (let ([str (symbol->string symbol)])
+    (string->symbol
+     (string-replace str "struct:" ""))))
+
 (define menu-item-evaluate
-  (new menu-item%
-       [label "&Evaluate code"]
-       [parent module-menu]
-       [callback
+  (let ([cb
          (λ (b e)
-            (set-buffer
-              (substring
-                (pretty-format (eval-kicad_mod/evaluate (read (get-buffer))))
-                1)))]
-       [shortcut #\e]))
+          (set-buffer
+            (pretty-format #:mode 'write
+              (to-list
+                (flatten/list
+                  (struct->list (eval-kicad_mod/ast (read (get-buffer)))))))))])
+    (new menu-item%
+         [label "&Evaluate code"]
+         [parent module-menu]
+         [callback cb]
+         [shortcut #\e])))
 
 (append-editor-operation-menu-items edit-menu #t)
 
