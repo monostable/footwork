@@ -101,8 +101,7 @@
               (set-buffer
                 (pretty-format #:mode 'write
                   (to-list
-                    (flatten/list
-                      (struct->list (s)))))))])
+                    (flatten/list (s))))))])
     (new menu-item%
          [label "&Evaluate code"]
          [parent module-menu]

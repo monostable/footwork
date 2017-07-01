@@ -22,11 +22,9 @@
 (struct end (x y) #:transparent)
 (struct start (x y) #:transparent)
 (struct fp_line (start end layer width) #:transparent)
-(struct module (name layer exprs) #:transparent)
 
-;(define module
-;  (lambda (name layer expr . exprs)
-;    (module name layer (list expr exprs)))
+(define (module name expr . exprs)
+  `(module ,name ,(list expr exprs)))
 
 
 (struct layer (l)
