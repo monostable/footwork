@@ -141,6 +141,6 @@
 (send editor set-max-undo-history 'forever)
 
 (send editor-canvas set-editor editor)
-(send editor load-file "example.kicad_mod")
+(send editor load-file "example.footwork_mod")
 (send editor-canvas focus)
 (send frame show #t)
