@@ -2,16 +2,6 @@
 (require "kicad_mod.rkt")
 (define m (file->string "example.footwork_mod"))
 
-;flatten lists only, flatten in racket/list also flattens structs
-(define (flatten/list lst)
-  (foldl
-    (λ (x result)
-      (if (list? x)
-        (append result (flatten/list x))
-        (append result (list x))))
-    (list)
-    lst))
-
 ; turns struct into list but also keeps the initial keyword unlike the one in
 ; racket/struct
 (define (struct->list x)
@@ -35,5 +25,7 @@
 
 (pretty-write
   (structs->lists
-    (flatten/list
+    (flatten
       (eval-kicad_mod/ast m))))
+
+(provide structs->lists)

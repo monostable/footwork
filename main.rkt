@@ -3,6 +3,7 @@
 
 (require framework)
 (require "kicad_mod.rkt")
+(require "cli.rkt")
 
 (define frame (new frame% [label "Footwork"]))
 (define menu-bar (new menu-bar% [parent frame]))
@@ -66,42 +67,13 @@
          (λ (b e) (send canvas refresh-now))]
        [shortcut #\r]))
 
-
-(define (flatten/list lst)
-  (foldl
-   (lambda (x result)
-     (if (list? x)
-         (append result (flatten/list x))
-         (append result (list x))))
-   (list)
-   lst))
-
-(define (struct->list x)
-  (let* ([de-struct
-          (λ (sym)
-            (let ([str (symbol->string sym)])
-              (string->symbol
-               (string-replace str "struct:" ""))))]
-         [v (struct->vector x)]
-         [s (de-struct (vector-ref v 0))])
-    (begin
-      (vector-set! v 0 s)
-      (vector->list v))))
-
-
-(define (to-list x)
-  (cond
-    [(struct? x) (to-list (struct->list x))]
-    [(list? x) (map to-list x)]
-    [else x]))
-
 (define menu-item-evaluate
   (let* ([s (λ () (eval-kicad_mod/ast (read (get-buffer))))]
          [cb (λ (b e)
               (set-buffer
                 (pretty-format #:mode 'write
-                  (to-list
-                    (flatten/list (s))))))])
+                  (structs->lists
+                    (flatten (s))))))])
     (new menu-item%
          [label "&Evaluate code"]
          [parent module-menu]
