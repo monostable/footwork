@@ -18,7 +18,7 @@ I gave a [presentation about footwork at FOSDEM 2017][fosdem2017].
 - Traditional (mouse based) manipulation is being added as calls to scripting
 - Racket's [Rosette language][rosette], an interface to SMT solvers, offers the exciting opportunity to make use of cutting edge techniques in programming synthesis for design automation
 
-[kicad]: http://kicad-pcb.org
+[kicad]: http://kicad.org
 [racket]: http://racket-lang.org
 [sketch-n-sketch]: https://ravichugh.github.io/sketch-n-sketch/
 [rosette]: https://emina.github.io/rosette/
